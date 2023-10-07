@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1070984719409",
+    "firebase_url": "https://store-e4e35-default-rtdb.firebaseio.com",
+    "project_id": "store-e4e35",
+    "storage_bucket": "store-e4e35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070984719409:android:f9f6d23bd997ae2ebf3910",
+        "android_client_info": {
+          "package_name": "com.eco.bundleId"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYxbJylUijW6v01jiXZp-QmFvpob5pS1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070984719409:android:9f90a380a72cfe0dbf3910",
+        "android_client_info": {
+          "package_name": "com.example.eco_bricks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYxbJylUijW6v01jiXZp-QmFvpob5pS1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
