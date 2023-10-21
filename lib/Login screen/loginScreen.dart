@@ -1,7 +1,11 @@
 
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ndialog/ndialog.dart';
 
 import '../AllmainScreens/mainScreen.dart';
@@ -20,6 +24,37 @@ class _loginScreenState extends State<loginScreen> {
 
   bool _isSecurePassword = true;
 
+  late ConnectivityResult result;
+  late StreamSubscription subscription;
+  var isConnected = false;
+
+  @override
+  void initState()
+  {
+    super.initState();
+    startStreaming();
+  }
+
+  checkInternet() async {
+    result = await Connectivity().checkConnectivity();
+    if(result != ConnectivityResult.none)
+    {
+      isConnected = true;
+    }
+    else
+    {
+      isConnected = false;
+    }
+  }
+
+
+  startStreaming ()
+  {
+    subscription = Connectivity().onConnectivityChanged.listen((event) {
+      checkInternet();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -34,7 +69,8 @@ class _loginScreenState extends State<loginScreen> {
             gradient: LinearGradient(
               colors: [
                 Colors.white,
-                Colors.purple.shade300,
+                Colors.white,
+                Colors.purple,
               ],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
@@ -64,12 +100,8 @@ class _loginScreenState extends State<loginScreen> {
                         ),
                       ),
                       const SizedBox(height: 20,),
-                      const Text("Block by Block Lets Build the Nation",
-                        style: TextStyle(
-                            color: Colors.purple,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400,
-                        ),
+                       Text("Block by Block Lets Build the Nation",
+                        style: GoogleFonts.aBeeZee(color: Colors.purple,fontSize: 17,fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),
@@ -97,8 +129,16 @@ class _loginScreenState extends State<loginScreen> {
                                 height: h*0.345,
                                 width: w,
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        offset: Offset(2, 2),
+                                        blurRadius: 3
+                                    ),
+                                  ],
+
                                 ),
                                 child: Column(
                                   children: [
@@ -112,7 +152,7 @@ class _loginScreenState extends State<loginScreen> {
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
-                                              color: Colors.grey.shade300,
+                                              color: Colors.purple.withOpacity(0.5),
                                               offset: Offset(2, 2),
                                               blurRadius: 3
                                           ),
@@ -124,7 +164,7 @@ class _loginScreenState extends State<loginScreen> {
                                         keyboardType: TextInputType.emailAddress,
                                         cursorColor: Colors.purple,
                                         style: TextStyle(
-                                            decorationColor: Colors.pinkAccent.shade100,
+                                            decorationColor: Colors.transparent,
                                             letterSpacing: 0.7,
                                             fontSize: 16,
                                             color: Colors.black
@@ -150,10 +190,10 @@ class _loginScreenState extends State<loginScreen> {
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
-                                              color: Colors.grey.shade300,
-                                              offset: const Offset(2, 2),
+                                              color: Colors.purple.withOpacity(0.5),
+                                              offset: Offset(2, 2),
                                               blurRadius: 3
-                                          )
+                                          ),
                                         ],
                                       ),
                                       child: TextFormField(
@@ -163,7 +203,7 @@ class _loginScreenState extends State<loginScreen> {
                                         obscureText: _isSecurePassword,
                                         cursorColor: Colors.purple,
                                         style: TextStyle(
-                                            decorationColor: Colors.pinkAccent.shade100,
+                                            decorationColor: Colors.transparent,
                                             letterSpacing: 0.7,
                                             fontSize: 16,
                                             color: Colors.black
@@ -186,6 +226,7 @@ class _loginScreenState extends State<loginScreen> {
 
                                         var email = emailEditingController.text.trim();
                                         var password = passwordEditingController.text.trim();
+                                        startStreaming();
 
                                         if(email.isEmpty||password.isEmpty){
                                           //show error toast
@@ -193,6 +234,12 @@ class _loginScreenState extends State<loginScreen> {
 
                                           return;
                                         }
+                                        else if(isConnected == false)
+                                          {
+                                            Fluttertoast.showToast(msg: 'Please check your internet connection');
+
+                                            return;
+                                          }
                                         else if(email!= "ecobricks@gmail.com" && password!= "ebt18600"){
                                           //show error toast
                                           Fluttertoast.showToast(msg: 'Invalid Email address and Password');
@@ -261,13 +308,6 @@ class _loginScreenState extends State<loginScreen> {
                                         decoration: BoxDecoration(
                                           color: Colors.purple,
                                           borderRadius: BorderRadius.circular(30),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey.shade300,
-                                                offset: Offset(2, 2),
-                                                blurRadius: 3
-                                            )
-                                          ],
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -321,13 +361,13 @@ class _loginScreenState extends State<loginScreen> {
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(60),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.grey.shade300,
-                                            offset: const Offset(2, 2),
-                                            blurRadius: 3
-                                        )
-                                      ]
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.purple.withOpacity(0.5),
+                                          offset: Offset(2, 2),
+                                          blurRadius: 3
+                                      ),
+                                    ],
                                   ),
                                   child: Center(
                                     child: Container(

@@ -16,6 +16,7 @@ class splashScreen extends StatefulWidget {
 class _splashScreenState extends State<splashScreen>
     with SingleTickerProviderStateMixin {
 
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +42,8 @@ class _splashScreenState extends State<splashScreen>
 
 
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +53,8 @@ class _splashScreenState extends State<splashScreen>
           gradient: LinearGradient(
             colors: [
               Colors.white,
-              Colors.purple.shade300,
+              Colors.white,
+              Colors.purple,
             ],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,

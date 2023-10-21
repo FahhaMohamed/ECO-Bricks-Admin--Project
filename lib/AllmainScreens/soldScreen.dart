@@ -68,7 +68,7 @@ class _soldScreenState extends State<soldScreen> {
         elevation: 0,
         centerTitle: false,
         backgroundColor: Colors.grey.shade100,
-        title: Text("Sold your items here",style: GoogleFonts.aBeeZee(color: Colors.black),),
+        title: Text("Sell your items here",style: GoogleFonts.aBeeZee(color: Colors.black),),
       ),
       body: SafeArea(
         child: Center(

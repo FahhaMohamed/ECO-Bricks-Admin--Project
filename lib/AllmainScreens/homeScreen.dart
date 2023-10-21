@@ -2,6 +2,7 @@
 import 'package:eco_bricks/AllmainScreens/pavers.dart';
 import 'package:eco_bricks/AllmainScreens/wallTiles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,37 +81,46 @@ class _homeScreenState extends State<homeScreen> {
           IconButton(
             onPressed: (){
 
-              showDialog(context: context, builder: (ctx){
-                return AlertDialog(
-                  title: const Text('Confirmation !!!'),
-                  content: const Text('Are you sure to Log Out'),
-                  actions: [
-                    TextButton(
-                        onPressed: (){
+              showDialog(context: context, builder: (ctx)=>AlertDialog(
+                title: Text("Confirmation"),
+                content: Text("Are you sure to Log out ??",),
+                contentTextStyle: TextStyle(fontSize: 16,color: Colors.black.withOpacity(0.7)),
+                actions: [
+                  Row(
+                    mainAxisAlignment : MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.purple,
+                          ),
+                          onPressed: (){
 
-                          Navigator.of(ctx).pop();
+                            Navigator.of(ctx).pop();
 
-                        },
-                        child: const Text('No',style: TextStyle(color: Colors.purple,fontSize: 16,fontWeight: FontWeight.bold),)
-                    ),
-                    TextButton(
-                        onPressed: (){
+                          },
+                          child: const Text('No',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold,),)
+                      ),
+                      ElevatedButton(
+                          onPressed: (){
 
-                          Navigator.of(ctx).pop();
+                            Navigator.of(ctx).pop();
 
-                          FirebaseAuth.instance.signOut();
+                            FirebaseAuth.instance.signOut();
 
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
-                            return const loginScreen();
-                          }));
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
+                              return const loginScreen();
+                            }));
 
-                        },
-                        child: const Text('Yes',style: TextStyle(color: Colors.purple,fontSize: 16,fontWeight: FontWeight.bold),)
-                    ),
-
-                  ],
-                );
-              });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.purple,
+                          ),
+                          child: const Text('Yes',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),)
+                      ),
+                    ],
+                  )
+                ],
+              ));
 
 
 

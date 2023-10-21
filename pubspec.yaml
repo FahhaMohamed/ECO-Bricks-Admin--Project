@@ -51,6 +51,8 @@ dependencies:
   firebase_database: ^10.2.6
   fluttertoast: ^8.2.2
   ndialog: ^4.3.1
+  connectivity_plus: ^5.0.1
+
 
 dev_dependencies:
   flutter_test:
