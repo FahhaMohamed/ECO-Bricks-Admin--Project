@@ -109,7 +109,7 @@ class _addScreenState extends State<addScreen> {
                       ),
                       SizedBox(
                           width: w*0.25,
-                          child: const Center(child: Text("Purchase Date",style: TextStyle(color: Colors.white,fontSize: 16),))
+                          child: const Center(child: Text("Product Date",style: TextStyle(color: Colors.white,fontSize: 16),))
                       ),
                     ],
                   ),
