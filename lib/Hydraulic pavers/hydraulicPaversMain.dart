@@ -91,7 +91,6 @@ class _hydraulicPaversMainState extends State<hydraulicPaversMain> {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 35),
                   ],
                 ),
               ),

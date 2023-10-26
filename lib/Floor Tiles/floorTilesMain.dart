@@ -91,7 +91,6 @@ class _floorTilesMainState extends State<floorTilesMain> {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 35),
                   ],
                 ),
               ),

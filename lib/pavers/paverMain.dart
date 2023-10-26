@@ -91,7 +91,6 @@ class _paverMainState extends State<paverMain> {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 35),
                   ],
                 ),
               ),

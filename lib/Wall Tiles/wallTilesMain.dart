@@ -91,7 +91,6 @@ class _wallTilesMainState extends State<wallTilesMain> {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 35),
                   ],
                 ),
               ),

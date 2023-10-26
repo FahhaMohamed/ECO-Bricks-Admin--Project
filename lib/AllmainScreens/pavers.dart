@@ -379,7 +379,7 @@ class _paversState extends State<pavers> {
                                           return AlertDialog(
                                             backgroundColor: Colors.white,
                                             content: SizedBox(
-                                              height: MediaQuery.of(context).size.height,
+                                              height: MediaQuery.of(context).size.height*0.55,
                                               width: w,
                                               child: paverMain(xmoulds: x['moulds'], xfeet: x['feet'], xweight: x['weight'], docum: '${snapshot.data!.docs[i]['order']}', xname: x['name'],),
                                             ),

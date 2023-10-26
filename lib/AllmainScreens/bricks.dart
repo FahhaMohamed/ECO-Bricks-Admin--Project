@@ -434,7 +434,7 @@ class _bricksState extends State<bricks> {
                                             return AlertDialog(
                                               backgroundColor: Colors.white,
                                               content: SizedBox(
-                                                height: 350,
+                                                height:MediaQuery.of(context).size.height*0.5,
                                                 width: w,
                                                 child: bricksMain(xmoulds: x['moulds'], xfeet: x['feet'], xweight: x['weight'], xamount: x['amount'], xname: x['name'], docum: "${snapshot.data!.docs[i]['order']}",),
                                               ),

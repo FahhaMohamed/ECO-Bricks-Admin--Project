@@ -93,7 +93,6 @@ class _bricksMainState extends State<bricksMain> {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 35),
                   ],
                 ),
               ),
