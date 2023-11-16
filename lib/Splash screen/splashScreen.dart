@@ -1,4 +1,5 @@
 
+import 'package:eco_bricks/AllmainScreens/homeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,36 +51,42 @@ class _splashScreenState extends State<splashScreen>
           gradient: LinearGradient(
             colors: [
               Colors.white,
-              Colors.white,
-              Colors.purple,
+              Colors.grey,
             ],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            const Expanded(child: SizedBox()),
-            Container(
-              height: 300,
-              width: 300,
-              decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage('assets/splash/eco2.png'),fit: BoxFit.fill)
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(left: 15),
+                height: 400,
+                width: 400,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(image: AssetImage('assets/splash/new.PNG'),fit: BoxFit.fill)
+                ),
               ),
             ),
-            const Expanded(child: SizedBox()),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.android,color: Colors.white,size: 20,),
-                SizedBox(width: 5,),
-                Text("Developed by",style: TextStyle(color: Colors.white,fontSize: 12,),),
-              ],
-            ),
-            const SizedBox(height: 3,),
-            const Text("MOHAMED FAHHAM",style: TextStyle(color: Colors.white,fontSize: 12,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),),
-            const SizedBox(height: 40,),
+            SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.android,color: Colors.green,size: 20,),
+                      SizedBox(width: 5,),
+                      Text("Developed by",style: TextStyle(color: Colors.black,fontSize: 12,),),
+                    ],
+                  ),
+                  const SizedBox(height: 3,),
+                  const Text("MOHAMED FAHHAM",style: TextStyle(color: Colors.black,fontSize: 12,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),),
+                  const SizedBox(height: 20,),
+                ],
+              ),
+            )
           ],
         ),
       ),

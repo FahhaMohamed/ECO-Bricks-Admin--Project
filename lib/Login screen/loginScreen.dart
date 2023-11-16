@@ -71,8 +71,7 @@ class _loginScreenState extends State<loginScreen> {
               gradient: LinearGradient(
                 colors: [
                   Colors.white,
-                  Colors.white,
-                  Colors.purple,
+                  Colors.grey,
                 ],
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
@@ -94,7 +93,7 @@ class _loginScreenState extends State<loginScreen> {
                               letterSpacing: 0.7,
                               shadows: [
                                 Shadow(
-                                  color: Colors.purple.shade300,
+                                  color: Colors.black.withOpacity(0.5),
                                   offset: const Offset(2, 2),
                                   blurRadius: 5
                                 )
@@ -103,7 +102,7 @@ class _loginScreenState extends State<loginScreen> {
                         ),
                         const SizedBox(height: 20,),
                          Text("Block by Block Lets Build the Nation",
-                          style: GoogleFonts.aBeeZee(color: Colors.purple,fontSize: 17,fontWeight: FontWeight.w400),
+                          style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
@@ -112,8 +111,8 @@ class _loginScreenState extends State<loginScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("Address", style: TextStyle(color: Colors.white,fontSize: 18),),
-                        Text("No: 213 | Mannar Road | Puttalam.", style: TextStyle(color: Colors.white,fontSize: 16),),
+                        Text("Address", style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),),
+                        Text("No: 213 | Mannar Road | Puttalam.", style: TextStyle(color: Colors.black,fontSize: 16),),
                         SizedBox(height: 10,)
                       ],
                     ),
@@ -131,7 +130,7 @@ class _loginScreenState extends State<loginScreen> {
                                   height: h*0.345,
                                   width: w,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Colors.white.withOpacity(0.9),
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
@@ -150,11 +149,11 @@ class _loginScreenState extends State<loginScreen> {
                                         width: w*0.76,
                                         height: h*0.046,
                                         decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          color: Colors.grey.shade100,
                                           borderRadius: BorderRadius.circular(20),
                                           boxShadow: [
                                             BoxShadow(
-                                                color: Colors.purple.withOpacity(0.5),
+                                                color: Colors.black.withOpacity(0.5),
                                                 offset: Offset(2, 2),
                                                 blurRadius: 3
                                             ),
@@ -177,7 +176,8 @@ class _loginScreenState extends State<loginScreen> {
                                             hintText: 'Email address',
                                             hintStyle: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.grey
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold
                                             ),
                                           ),
                                         ),
@@ -188,11 +188,11 @@ class _loginScreenState extends State<loginScreen> {
                                         width: w*0.76,
                                         height: h*0.046,
                                         decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          color: Colors.grey.shade100,
                                           borderRadius: BorderRadius.circular(20),
                                           boxShadow: [
                                             BoxShadow(
-                                                color: Colors.purple.withOpacity(0.5),
+                                                color: Colors.black.withOpacity(0.5),
                                                 offset: Offset(2, 2),
                                                 blurRadius: 3
                                             ),
@@ -218,7 +218,8 @@ class _loginScreenState extends State<loginScreen> {
                                               hintText: 'Password',
                                               hintStyle: const TextStyle(
                                                   fontSize: 16,
-                                                  color: Colors.grey
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold
                                               )
                                           ),
                                         ),
@@ -309,7 +310,7 @@ class _loginScreenState extends State<loginScreen> {
                                           width: w*0.76,
                                           height: h*0.05,
                                           decoration: BoxDecoration(
-                                            color: Colors.purple,
+                                            color: Colors.purple.shade400,
                                             borderRadius: BorderRadius.circular(30),
                                           ),
                                           child: const Center(
@@ -359,29 +360,20 @@ class _loginScreenState extends State<loginScreen> {
                               Align(
                                 alignment: Alignment.topCenter,
                                 child: Container(
-                                    height: h*0.09,
-                                    width: h*0.09,
+                                    height: h*0.08,
+                                    width: h*0.11,
                                     decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        image: const DecorationImage(image: AssetImage('assets/splash/new.PNG'),fit: BoxFit.cover),
+                                        color: Colors.grey.shade100,
                                         borderRadius: BorderRadius.circular(60),
                                       boxShadow: [
                                         BoxShadow(
-                                            color: Colors.purple.withOpacity(0.5),
+                                            color: Colors.black.withOpacity(0.5),
                                             offset: Offset(2, 2),
                                             blurRadius: 3
                                         ),
                                       ],
                                     ),
-                                    child: Center(
-                                      child: Container(
-                                        height: 70,
-                                        width: 70,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(60),
-                                            image: const DecorationImage(image: AssetImage('assets/icon/icon.jpg'))
-                                        ),
-                                      ),
-                                    )
                                 ),
                                 ),
                             ],

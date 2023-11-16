@@ -114,7 +114,8 @@ class _addScreenState extends State<addScreen> {
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              SizedBox(
+                                              Container(
+                                                  padding: EdgeInsets.only(left: 10),
                                                   width: w*0.25,
                                                   child: Center(child: Text(x['name'],style: const TextStyle(color: Colors.black,fontSize: 14),))),
                                               SizedBox(

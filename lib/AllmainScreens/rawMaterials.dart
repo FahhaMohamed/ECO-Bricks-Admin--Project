@@ -24,7 +24,7 @@ class _rawMaterialsState extends State<rawMaterials> {
   TextEditingController textEditingController = TextEditingController();
 
   String search = "";
-  int initialAmount = 0;
+  double initialAmount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,219 +37,219 @@ class _rawMaterialsState extends State<rawMaterials> {
       child: Scaffold(
         backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: ()async {
+                  textEditingController.text = "";
+                  unitEditingController.text = "";
+                  amountEditingController.text = "";
+
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return GestureDetector(
+                          onTap: ()=> FocusScope.of(context).unfocus(),
+                          child: AlertDialog(
+                            backgroundColor: Colors.white,
+                            title: const Text("Create new Material",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                            content: SizedBox(
+                              height: 110,
+                              child: Column(
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.only(left: 20),
+                                      width: MediaQuery.of(context).size.width*0.8,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.purple.withOpacity(0.3),
+                                              offset: Offset(2, 5),
+                                              blurRadius: 7
+                                          ),
+                                        ],
+                                      ),
+
+                                      child:Center(
+                                        child: TextField(
+                                          textAlignVertical: TextAlignVertical.center,
+                                          textAlign: TextAlign.start,
+                                          controller: textEditingController,
+                                          keyboardType: TextInputType.text,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            decorationColor: Colors.pinkAccent.withOpacity(0.05),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.7,
+                                          ),
+                                          cursorColor: Colors.black,
+                                          decoration: const InputDecoration(
+                                              hintText: ' Item',
+                                              border: InputBorder.none,
+                                              hintStyle: TextStyle(
+                                                  fontSize: 16
+                                              )
+                                          ),
+                                        ),
+                                      )
+                                  ),
+                                  SizedBox(height: 20,),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.1,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(80),
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.purple.withOpacity(0.3),
+                                                offset: Offset(2, 5),
+                                                blurRadius: 7
+                                            ),
+                                          ],
+                                        ),
+                                        child: TextField(
+                                          textAlignVertical: TextAlignVertical.center,
+                                          textAlign: TextAlign.center,
+                                          controller: amountEditingController,
+                                          keyboardType: TextInputType.text,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            decorationColor: Colors.pinkAccent.withOpacity(0.05),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.7,
+                                          ),
+                                          cursorColor: Colors.black,
+                                          decoration: const InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: '.....',
+                                              hintStyle: TextStyle(
+                                                  fontSize: 16
+                                              )
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.2,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(30),
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.purple.withOpacity(0.3),
+                                                offset: Offset(2, 5),
+                                                blurRadius: 7
+                                            ),
+                                          ],
+                                        ),
+                                        child: TextField(
+                                          textAlignVertical: TextAlignVertical.center,
+                                          textAlign: TextAlign.center,
+                                          controller: unitEditingController,
+                                          keyboardType: TextInputType.text,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            decorationColor: Colors.pinkAccent.withOpacity(0.05),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.7,
+                                          ),
+                                          cursorColor: Colors.black,
+                                          decoration: const InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: ' Unit',
+                                              hintStyle: TextStyle(
+                                                  fontSize: 16
+                                              )
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Cancel",style: TextStyle(color: Colors.grey.shade100,fontSize: 19,fontWeight: FontWeight.bold),),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.grey,
+                                    shadowColor: Colors.black87,
+                                    elevation: 8
+                                ),
+
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  String name = textEditingController.text;
+                                  String unit = unitEditingController.text;
+                                  String amount = amountEditingController.text;
+                                  String order = DateTime.now().toString();
+
+                                  if(name.isEmpty || unit.isEmpty || amount.isEmpty)
+                                  {
+                                    Fluttertoast.showToast(msg: 'Please fill all fields');
+                                    return;
+                                  }
+                                  else
+                                  {
+                                    Navigator.pop(context);
+
+
+                                    await fileRef!.doc(order).set({
+                                      'name' : name,
+                                      'unit' : unit,
+                                      'amount' : double.tryParse(amount),
+                                      'order' : order,
+                                    });
+                                    await FirebaseFirestore.instance.collection('Raw add History').doc().set({
+                                      'name' : name,
+                                      'unit' : unit,
+                                      'amount' : double.tryParse(amount),
+                                      'order' : DateTime.now().toString(),
+                                      'date' : '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} ${DateTime.now().hour}:${DateTime.now().minute}'
+                                    });
+                                  }
+                                },
+                                child: Text("Create",style: TextStyle(color: Colors.grey.shade100,fontSize: 19,fontWeight: FontWeight.bold),),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.purple,
+                                    shadowColor: Colors.black87,
+                                    elevation: 8
+                                ),
+                              ),
+                            ],
+                            actionsAlignment: MainAxisAlignment.spaceEvenly,
+                          ),
+                        );
+                      }
+                  );
+                },
+                icon: Icon(Icons.create,color: Colors.purple,size: 30,))
+          ],
           elevation: 0,
           leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios_new,color: Colors.black,)),
           centerTitle: false,
           backgroundColor: Colors.grey.shade100,
           title: Text("RAW MATERIALS",style: GoogleFonts.aBeeZee(color: Colors.black),),
         ),
-        floatingActionButton: FloatingActionButton(
-            onPressed:() async {
-              textEditingController.text = "";
-              unitEditingController.text = "";
-              amountEditingController.text = "";
-
-              showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return GestureDetector(
-                      onTap: ()=> FocusScope.of(context).unfocus(),
-                      child: AlertDialog(
-                        backgroundColor: Colors.white,
-                        title: const Text("Create new Material",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                        content: SizedBox(
-                          height: 110,
-                          child: Column(
-                            children: [
-                              Container(
-                                  padding: EdgeInsets.only(left: 20),
-                                  width: MediaQuery.of(context).size.width*0.8,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.purple.withOpacity(0.3),
-                                          offset: Offset(2, 5),
-                                          blurRadius: 7
-                                      ),
-                                    ],
-                                  ),
-
-                                  child:Center(
-                                    child: TextField(
-                                      textAlignVertical: TextAlignVertical.center,
-                                      textAlign: TextAlign.start,
-                                      controller: textEditingController,
-                                      keyboardType: TextInputType.text,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        decorationColor: Colors.pinkAccent.withOpacity(0.05),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        letterSpacing: 0.7,
-                                      ),
-                                      cursorColor: Colors.black,
-                                      decoration: const InputDecoration(
-                                          hintText: ' Item',
-                                          border: InputBorder.none,
-                                          hintStyle: TextStyle(
-                                              fontSize: 16
-                                          )
-                                      ),
-                                    ),
-                                  )
-                              ),
-                              SizedBox(height: 20,),
-                              Row(
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width*0.1,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(80),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.purple.withOpacity(0.3),
-                                            offset: Offset(2, 5),
-                                            blurRadius: 7
-                                        ),
-                                      ],
-                                    ),
-                                    child: TextField(
-                                      textAlignVertical: TextAlignVertical.center,
-                                      textAlign: TextAlign.center,
-                                      controller: amountEditingController,
-                                      keyboardType: TextInputType.number,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        decorationColor: Colors.pinkAccent.withOpacity(0.05),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        letterSpacing: 0.7,
-                                      ),
-                                      cursorColor: Colors.black,
-                                      decoration: const InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: '.....',
-                                          hintStyle: TextStyle(
-                                              fontSize: 16
-                                          )
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width*0.2,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.purple.withOpacity(0.3),
-                                            offset: Offset(2, 5),
-                                            blurRadius: 7
-                                        ),
-                                      ],
-                                    ),
-                                    child: TextField(
-                                      textAlignVertical: TextAlignVertical.center,
-                                      textAlign: TextAlign.center,
-                                      controller: unitEditingController,
-                                      keyboardType: TextInputType.text,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        decorationColor: Colors.pinkAccent.withOpacity(0.05),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        letterSpacing: 0.7,
-                                      ),
-                                      cursorColor: Colors.black,
-                                      decoration: const InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: ' Unit',
-                                          hintStyle: TextStyle(
-                                              fontSize: 16
-                                          )
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: (){
-                              Navigator.pop(context);
-                            },
-                            child: Text("Cancel",style: TextStyle(color: Colors.grey.shade100,fontSize: 19,fontWeight: FontWeight.bold),),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey,
-                                shadowColor: Colors.black87,
-                                elevation: 8
-                            ),
-
-                          ),
-                          ElevatedButton(
-                            onPressed: () async {
-                              String name = textEditingController.text;
-                              String unit = unitEditingController.text;
-                              String amount = amountEditingController.text;
-                              String order = DateTime.now().toString();
-
-                              if(name.isEmpty || unit.isEmpty || amount.isEmpty)
-                              {
-                                Fluttertoast.showToast(msg: 'Please fill all fields');
-                                return;
-                              }
-                              else
-                              {
-                                Navigator.pop(context);
-
-
-                                await fileRef!.doc(order).set({
-                                  'name' : name,
-                                  'unit' : unit,
-                                  'amount' : int.tryParse(amount),
-                                  'order' : order,
-                                });
-                                await FirebaseFirestore.instance.collection('Raw add History').doc().set({
-                                  'name' : name,
-                                  'unit' : unit,
-                                  'amount' : int.tryParse(amount),
-                                  'order' : DateTime.now().toString(),
-                                  'date' : '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} ${DateTime.now().hour}:${DateTime.now().minute}'
-                                });
-                              }
-                            },
-                            child: Text("Create",style: TextStyle(color: Colors.grey.shade100,fontSize: 19,fontWeight: FontWeight.bold),),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purple,
-                                shadowColor: Colors.black87,
-                                elevation: 8
-                            ),
-                          ),
-                        ],
-                        actionsAlignment: MainAxisAlignment.spaceEvenly,
-                      ),
-                    );
-                  }
-              );
-            },
-            child: Icon(Icons.add,color: Colors.grey.shade100,size: 30,),
-            backgroundColor: Colors.purple,
-          ),
         body: Column(
           children: [
             Container(
@@ -570,289 +570,306 @@ class _rawMaterialsState extends State<rawMaterials> {
                                     ),
                                     padding: const EdgeInsets.only(left: 20),
                                     child: Center(
-                                        child: SingleChildScrollView(
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                x['name'] + "     ${x['amount']}" + x['unit'],
-                                                style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w400),
-                                              ),
-                                              Expanded(child: SizedBox()),
-                                              Container(
-                                                height: 40,
-                                                width: 40,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(90),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: SingleChildScrollView(
+                                                scrollDirection: Axis.horizontal,
+                                                child: Text(
+                                                  x['name'],
+                                                  style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w400),
                                                 ),
-                                                child: FloatingActionButton(
-                                                  onPressed: (){
-                                                    String docu = "${snapshot.data!.docs[i]['order']}";
-                                                    amountEditingController.text = "";
-                                                    showDialog(
-                                                        barrierDismissible: false,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return GestureDetector(
-                                                            onTap: ()=> FocusScope.of(context).unfocus(),
-                                                            child: AlertDialog(
-                                                              backgroundColor: Colors.white,
-                                                              title: const Text("Please enter the amount",
-                                                                style: TextStyle(
-                                                                  color: Colors.black,
-                                                                  fontSize: 18,
-                                                                ),
-                                                              ),
-                                                              content: SizedBox(
-                                                                height: 90,
-                                                                child: Column(
-                                                                  children: [
-                                                                    Container(
-                                                                      padding: EdgeInsets.only(left: 20),
-                                                                      width: MediaQuery.of(context).size.width*0.8,
-                                                                      height: 40,
-                                                                      decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(30),
-                                                                        color: Colors.white,
-                                                                        boxShadow:[
-                                                                          BoxShadow(
-                                                                            color: Colors.grey.shade400,
-                                                                            offset: const Offset(10, 10),
-                                                                            blurRadius: 20,
-                                                                          )
-                                                                        ],
-                                                                      ),
-
-                                                                      child:TextFormField(
-                                                                        controller: amountEditingController,
-                                                                        keyboardType: TextInputType.number,
-                                                                        style: TextStyle(
-                                                                          color: Colors.black,
-                                                                          decorationColor: Colors.pinkAccent.withOpacity(0.05),
-                                                                          fontSize: 18,
-                                                                          fontWeight: FontWeight.w400,
-                                                                          letterSpacing: 0.7,
-                                                                        ),
-                                                                        cursorColor: Colors.black,
-                                                                        decoration: const InputDecoration(
-                                                                            hintText: ' Amount',
-                                                                            border: InputBorder.none,
-                                                                            hintStyle: TextStyle(fontSize: 16)
-                                                                        ),
-                                                                      ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: SingleChildScrollView(
+                                                scrollDirection: Axis.horizontal,
+                                                child: Text(
+                                                  "   ${x['amount']}" + x['unit'],
+                                                  style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w400),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 100,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(90),
+                                                    ),
+                                                    child: FloatingActionButton(
+                                                      onPressed: (){
+                                                        String docu = "${snapshot.data!.docs[i]['order']}";
+                                                        amountEditingController.text = "";
+                                                        showDialog(
+                                                            barrierDismissible: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return GestureDetector(
+                                                                onTap: ()=> FocusScope.of(context).unfocus(),
+                                                                child: AlertDialog(
+                                                                  backgroundColor: Colors.white,
+                                                                  title: const Text("Please enter the amount",
+                                                                    style: TextStyle(
+                                                                      color: Colors.black,
+                                                                      fontSize: 18,
                                                                     ),
-                                                                    const Expanded(child: SizedBox()),
-                                                                    Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                  ),
+                                                                  content: SizedBox(
+                                                                    height: 90,
+                                                                    child: Column(
                                                                       children: [
-                                                                        TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("Cancel",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 20),)),
-                                                                        TextButton(
-                                                                            onPressed: () async {
-                                                                              if(amountEditingController.text.isEmpty)
-                                                                              {
-                                                                                Fluttertoast.showToast(msg: 'Please fill the field');
-                                                                                return;
-                                                                              }
-                                                                              else if(x['amount'] == null)
-                                                                              {
-                                                                                setState(() {
-                                                                                  initialAmount = 0;
-                                                                                });
-                                                                              }
-                                                                              else
-                                                                              {
-                                                                                setState(() {
-                                                                                  initialAmount = x['amount'];
-                                                                                });
-                                                                              }
-                                                                              String amount = amountEditingController.text.trim();
-                                                                              initialAmount = initialAmount - int.parse(amount);
+                                                                        Container(
+                                                                          padding: EdgeInsets.only(left: 20),
+                                                                          width: MediaQuery.of(context).size.width*0.8,
+                                                                          height: 40,
+                                                                          decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.circular(30),
+                                                                            color: Colors.white,
+                                                                            boxShadow:[
+                                                                              BoxShadow(
+                                                                                color: Colors.grey.shade400,
+                                                                                offset: const Offset(10, 10),
+                                                                                blurRadius: 20,
+                                                                              )
+                                                                            ],
+                                                                          ),
 
-                                                                              if(initialAmount<0){
-                                                                                showDialog(
-                                                                                    barrierDismissible: false,
-                                                                                    context: context,
-                                                                                    builder: (context) {
-                                                                                      return AlertDialog(
-                                                                                        backgroundColor: Colors.white,
-                                                                                        title: const Row(
-                                                                                          children: [
-                                                                                            Icon(Icons.info_outline,color: Colors.red,),
-                                                                                            SizedBox(width: 10,),
-                                                                                            Text("Not enough items",
-                                                                                              style: TextStyle(
-                                                                                                color: Colors.red,
-                                                                                                fontSize: 20,
+                                                                          child:TextFormField(
+                                                                            controller: amountEditingController,
+                                                                            keyboardType: TextInputType.number,
+                                                                            style: TextStyle(
+                                                                              color: Colors.black,
+                                                                              decorationColor: Colors.pinkAccent.withOpacity(0.05),
+                                                                              fontSize: 18,
+                                                                              fontWeight: FontWeight.w400,
+                                                                              letterSpacing: 0.7,
+                                                                            ),
+                                                                            cursorColor: Colors.black,
+                                                                            decoration: const InputDecoration(
+                                                                                hintText: ' Amount',
+                                                                                border: InputBorder.none,
+                                                                                hintStyle: TextStyle(fontSize: 16)
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        const Expanded(child: SizedBox()),
+                                                                        Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                          children: [
+                                                                            TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("Cancel",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 20),)),
+                                                                            TextButton(
+                                                                                onPressed: () async {
+                                                                                  if(amountEditingController.text.isEmpty)
+                                                                                  {
+                                                                                    Fluttertoast.showToast(msg: 'Please fill the field');
+                                                                                    return;
+                                                                                  }
+                                                                                  else if(x['amount'] == null)
+                                                                                  {
+                                                                                    setState(() {
+                                                                                      initialAmount = 0;
+                                                                                    });
+                                                                                  }
+                                                                                  else
+                                                                                  {
+                                                                                    setState(() {
+                                                                                      initialAmount = x['amount'];
+                                                                                    });
+                                                                                  }
+                                                                                  String amount = amountEditingController.text.trim();
+                                                                                  initialAmount = initialAmount - double.parse(amount);
+
+                                                                                  if(initialAmount<0){
+                                                                                    showDialog(
+                                                                                        barrierDismissible: false,
+                                                                                        context: context,
+                                                                                        builder: (context) {
+                                                                                          return AlertDialog(
+                                                                                            backgroundColor: Colors.white,
+                                                                                            title: const Row(
+                                                                                              children: [
+                                                                                                Icon(Icons.info_outline,color: Colors.red,),
+                                                                                                SizedBox(width: 10,),
+                                                                                                Text("Not enough items",
+                                                                                                  style: TextStyle(
+                                                                                                    color: Colors.red,
+                                                                                                    fontSize: 20,
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            content: SizedBox(
+                                                                                              height: 30,
+                                                                                              child: Column(
+                                                                                                children: [
+                                                                                                  const Text('Please check the balance',style: TextStyle(
+                                                                                                    color: Colors.black,
+                                                                                                    fontSize: 18,
+                                                                                                  ),),
+                                                                                                ],
                                                                                               ),
                                                                                             ),
-                                                                                          ],
-                                                                                        ),
-                                                                                        content: SizedBox(
-                                                                                          height: 30,
-                                                                                          child: Column(
-                                                                                            children: [
-                                                                                              const Text('Please check the balance',style: TextStyle(
-                                                                                                color: Colors.black,
-                                                                                                fontSize: 18,
-                                                                                              ),),
+                                                                                            actions: [
+                                                                                              ElevatedButton(
+                                                                                                onPressed: (){
+                                                                                                  Navigator.pop(context);
+                                                                                                },
+                                                                                                child: Text("Ok",style: TextStyle(color: Colors.white,fontSize: 19,fontWeight: FontWeight.bold),),
+                                                                                                style: ElevatedButton.styleFrom(
+                                                                                                    backgroundColor: Colors.purple
+                                                                                                ),
+                                                                                              )
                                                                                             ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        actions: [
-                                                                                          ElevatedButton(
-                                                                                            onPressed: (){
-                                                                                              Navigator.pop(context);
-                                                                                            },
-                                                                                            child: Text("Ok",style: TextStyle(color: Colors.white,fontSize: 19,fontWeight: FontWeight.bold),),
-                                                                                            style: ElevatedButton.styleFrom(
-                                                                                                backgroundColor: Colors.purple
-                                                                                            ),
-                                                                                          )
-                                                                                        ],
-                                                                                      );
-                                                                                    }
-                                                                                );
-                                                                              }
-                                                                              else{
+                                                                                          );
+                                                                                        }
+                                                                                    );
+                                                                                  }
+                                                                                  else{
+                                                                                    Navigator.pop(context);
+                                                                                    await FirebaseFirestore.instance.collection('Raw sold History').doc().set({
+                                                                                      'name' : x['name'],
+                                                                                      'unit' : x['unit'],
+                                                                                      'amount' : double.tryParse(amount),
+                                                                                      'order' : DateTime.now().toString(),
+                                                                                      'date' : '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} ${DateTime.now().hour}:${DateTime.now().minute}'
+                                                                                    });
+
+                                                                                    fileRef!.doc(docu).update({
+                                                                                      'amount' : initialAmount,
+                                                                                    });
+                                                                                  }
+                                                                                },
+                                                                                child: const Text("Reduce",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),)
+                                                                            ),
+                                                                          ],),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+                                                        );
+                                                      },
+                                                      child: Icon(Icons.remove,color: Colors.purple,),
+                                                      backgroundColor: Colors.grey.shade100,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(90),
+                                                    ),
+                                                    child: FloatingActionButton(
+                                                      onPressed: (){
+                                                        String docu = "${snapshot.data!.docs[i]['order']}";
+                                                        amountEditingController.text = "";
+                                                        showDialog(
+                                                            barrierDismissible: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return AlertDialog(
+                                                                backgroundColor: Colors.white,
+                                                                title: const Text("Please enter the amount",
+                                                                  style: TextStyle(
+                                                                    color: Colors.black,
+                                                                    fontSize: 18,
+                                                                  ),
+                                                                ),
+                                                                content: SizedBox(
+                                                                  height: 90,
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Container(
+                                                                        padding: EdgeInsets.only(left: 20),
+                                                                        width: MediaQuery.of(context).size.width*0.8,
+                                                                        height: 40,
+                                                                        decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(30),
+                                                                          color: Colors.white,
+                                                                          boxShadow:[
+                                                                            BoxShadow(
+                                                                              color: Colors.grey.shade400,
+                                                                              offset: const Offset(10, 10),
+                                                                              blurRadius: 20,
+                                                                            )
+                                                                          ],
+                                                                        ),
+
+                                                                        child:Center(
+                                                                          child: TextFormField(
+                                                                            controller: amountEditingController,
+                                                                            keyboardType: TextInputType.number,
+                                                                            style: TextStyle(
+                                                                              color: Colors.black,
+                                                                              decorationColor: Colors.pinkAccent.withOpacity(0.05),
+                                                                              fontSize: 18,
+                                                                              fontWeight: FontWeight.w400,
+                                                                              letterSpacing: 0.7,
+                                                                            ),
+                                                                            cursorColor: Colors.black,
+                                                                            decoration: const InputDecoration(
+                                                                              hintText: ' Amount',
+                                                                              border: InputBorder.none,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      const Expanded(child: SizedBox()),
+                                                                      Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                        children: [
+                                                                          TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("Cancel",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 20),)),
+                                                                          TextButton(
+                                                                              onPressed: () async {
+                                                                                if(amountEditingController.text.isEmpty)
+                                                                                {
+                                                                                  Fluttertoast.showToast(msg: 'Please fill the field');
+                                                                                  return;
+                                                                                }
                                                                                 Navigator.pop(context);
-                                                                                await FirebaseFirestore.instance.collection('Raw sold History').doc().set({
+
+                                                                                String amount = amountEditingController.text.trim();
+
+                                                                                await FirebaseFirestore.instance.collection('Raw add History').doc().set({
                                                                                   'name' : x['name'],
                                                                                   'unit' : x['unit'],
-                                                                                  'amount' : int.tryParse(amount),
+                                                                                  'amount' : double.tryParse(amount),
                                                                                   'order' : DateTime.now().toString(),
                                                                                   'date' : '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} ${DateTime.now().hour}:${DateTime.now().minute}'
                                                                                 });
 
-                                                                                fileRef!.doc(docu).update({
-                                                                                  'amount' : initialAmount,
+                                                                                await fileRef!.doc(docu).update({
+                                                                                  'amount' : x['amount'] + double.parse(amount),
                                                                                 });
-                                                                              }
-                                                                            },
-                                                                            child: const Text("Reduce",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),)
-                                                                        ),
-                                                                      ],),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                    );
-                                                  },
-                                                  child: Icon(Icons.remove,color: Colors.purple,),
-                                                  backgroundColor: Colors.grey.shade100,
-                                                ),
-                                              ),
-                                              SizedBox(width: 15,),
-                                              Container(
-                                                height: 40,
-                                                width: 40,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(90),
-                                                ),
-                                                child: FloatingActionButton(
-                                                  onPressed: (){
-                                                    String docu = "${snapshot.data!.docs[i]['order']}";
-                                                    amountEditingController.text = "";
-                                                    showDialog(
-                                                        barrierDismissible: false,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return AlertDialog(
-                                                            backgroundColor: Colors.white,
-                                                            title: const Text("Please enter the amount",
-                                                              style: TextStyle(
-                                                                color: Colors.black,
-                                                                fontSize: 18,
-                                                              ),
-                                                            ),
-                                                            content: SizedBox(
-                                                              height: 90,
-                                                              child: Column(
-                                                                children: [
-                                                                  Container(
-                                                                    padding: EdgeInsets.only(left: 20),
-                                                                    width: MediaQuery.of(context).size.width*0.8,
-                                                                    height: 40,
-                                                                    decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(30),
-                                                                      color: Colors.white,
-                                                                      boxShadow:[
-                                                                        BoxShadow(
-                                                                          color: Colors.grey.shade400,
-                                                                          offset: const Offset(10, 10),
-                                                                          blurRadius: 20,
-                                                                        )
-                                                                      ],
-                                                                    ),
 
-                                                                    child:Center(
-                                                                      child: TextFormField(
-                                                                        controller: amountEditingController,
-                                                                        keyboardType: TextInputType.number,
-                                                                        style: TextStyle(
-                                                                          color: Colors.black,
-                                                                          decorationColor: Colors.pinkAccent.withOpacity(0.05),
-                                                                          fontSize: 18,
-                                                                          fontWeight: FontWeight.w400,
-                                                                          letterSpacing: 0.7,
-                                                                        ),
-                                                                        cursorColor: Colors.black,
-                                                                        decoration: const InputDecoration(
-                                                                          hintText: ' Amount',
-                                                                          border: InputBorder.none,
-                                                                        ),
-                                                                      ),
-                                                                    ),
+                                                                              },
+                                                                              child: const Text("Add",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),)
+                                                                          ),
+                                                                        ],),
+                                                                    ],
                                                                   ),
-                                                                  const Expanded(child: SizedBox()),
-                                                                  Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                    children: [
-                                                                      TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("Cancel",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 20),)),
-                                                                      TextButton(
-                                                                          onPressed: () async {
-                                                                            if(amountEditingController.text.isEmpty)
-                                                                            {
-                                                                              Fluttertoast.showToast(msg: 'Please fill the field');
-                                                                              return;
-                                                                            }
-                                                                            Navigator.pop(context);
+                                                                ),
+                                                              );
+                                                            }
+                                                        );
 
-                                                                            String amount = amountEditingController.text.trim();
-
-                                                                            await FirebaseFirestore.instance.collection('Raw add History').doc().set({
-                                                                              'name' : x['name'],
-                                                                              'unit' : x['unit'],
-                                                                              'amount' : int.tryParse(amount),
-                                                                              'order' : DateTime.now().toString(),
-                                                                              'date' : '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} ${DateTime.now().hour}:${DateTime.now().minute}'
-                                                                            });
-
-                                                                            await fileRef!.doc(docu).update({
-                                                                              'amount' : x['amount'] + int.parse(amount),
-                                                                            });
-
-                                                                          },
-                                                                          child: const Text("Add",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),)
-                                                                      ),
-                                                                    ],),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                    );
-
-                                                  },
-                                                  child: Icon(Icons.add,color: Colors.purple,),
-                                                  backgroundColor: Colors.grey.shade100,
-                                                ),
+                                                      },
+                                                      child: Icon(Icons.add,color: Colors.purple,),
+                                                      backgroundColor: Colors.grey.shade100,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(width: 15,),
-                                            ],
-                                          ),
+                                            )
+                                          ],
                                         )
                                     ),
                                   ),
