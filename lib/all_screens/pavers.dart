@@ -1,6 +1,7 @@
 
 import 'dart:typed_data';
 import 'package:animated_shimmer/animated_shimmer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:shimmer/shimmer.dart';
 import '../Utils/utils.dart';
 import '../main_categories/pavers/paverMain.dart';
 
@@ -1246,32 +1247,38 @@ class _paversState extends State<pavers> {
 
                                           },
                                           onDoubleTap: () => pickImage("${snapshot.data!.docs[i]['order']}"),
-                                          child: Container(
-                                            height:80,
-                                            width: 80,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(30),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.purple.shade50,
-                                                  blurRadius: 10,
-                                                  offset: const Offset(0, 10),
-                                                ),
-                                              ],
-                                            ),
-                                            child:x['Url'] == "" ? ClipOval(child: Image.asset('assets/emptyImg.jpg'))
-                                                : ClipOval(
-                                                child:Container(
-                                                  color:Colors.white,
-                                                  child:  Image.network(x['Url'],
-                                                    loadingBuilder: (context, child, loadingProgress) {
-                                                      if (loadingProgress == null) return child;
-                                                      return SpinKitFadingCircle(
-                                                        color: Colors.purple.shade400,
-                                                      );// You can use LinearProgressIndicator or CircularProgressIndicator instead
-                                                    },
+                                          child: ClipOval(
+                                            child: Container(
+                                              height:80,
+                                              width:80,
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.purple.shade50,
+                                                    blurRadius: 10,
+                                                    offset: const Offset(0, 10),
+                                                  ),
+                                                ],
+                                                color: Colors.white,
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl: x['Url'],
+                                                placeholder: (context, url) =>  Shimmer.fromColors(
+
+                                                  period: const Duration(milliseconds: 1000),
+                                                  baseColor: Colors.grey.shade400,
+                                                  highlightColor: Colors.grey.shade300,
+                                                  child: Container(
+                                                    width: 80,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black,
+                                                      borderRadius: BorderRadius.circular(80),
+                                                    ),
+                                                    height: 80,
                                                   ),
                                                 ),
+                                                errorWidget: (context, url, error) => Image.asset('assets/imgs.jpg'),
+                                              ),
                                             ),
                                           ),
                                         )

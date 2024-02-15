@@ -39,12 +39,9 @@ class _OrderScreenState extends State<OrderScreen> {
         appBar: AppBar(
           leading: IconButton(
               onPressed: (){
-                pendingCustomer.forEach((element) {
-                   counter =  element.docs.length;
-                   print(counter);
-                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => mainScreen(counter: counter,)));
-                  }
-                );
+
+                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => mainScreen()));
+
                 },
               icon: const Icon(Icons.arrow_back_ios_new,color: Colors.black,)),
           actions: [

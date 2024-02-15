@@ -11,10 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:icon_animated/icon_animated.dart';
 import 'package:info_toast/info_toast.dart';
 import 'package:info_toast/resources/arrays.dart';
-import 'package:zoom_tap_animation/zoom_tap_animation.dart';
-
-import '../../../services/push notification/notify_service.dart';
-import '../../../services/push notification/push_message.dart';
 
 
 class PendingScreen extends StatefulWidget {
@@ -51,8 +47,6 @@ class _PendingScreenState extends State<PendingScreen> {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-
-            NotifyService.getToken();
 
             categoryEditingController.text = '';
             itemEditingController.text = '';
@@ -105,12 +99,6 @@ class _PendingScreenState extends State<PendingScreen> {
                             autoDismiss:  true
                         ).show(context);
 
-                        DocumentSnapshot data = await FirebaseFirestore.instance.collection('Users').doc('user').get();
-                        String title = 'New order added';
-                        String body = 'Tap to view';
-                        String token = data['token'];
-
-                        pushMessage(token, body, title);
 
                         var date  = DateTime.now();
                         var order = date.microsecondsSinceEpoch.toString();

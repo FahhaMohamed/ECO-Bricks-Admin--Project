@@ -1,9 +1,6 @@
 
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:eco_bricks/services/push%20notification/notify_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -280,14 +277,10 @@ class _loginScreenState extends State<loginScreen> {
                               if(usercredential.user!=null){
 
                                 progressdialog.dismiss();
-
-                                NotifyService.getPermission();
-                                NotifyService.getToken();
-                                NotifyService.info(context);
                                 //getToken();
 
                                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
-                                  return mainScreen(counter: 0,);
+                                  return mainScreen();
                                 }));
 
                               }

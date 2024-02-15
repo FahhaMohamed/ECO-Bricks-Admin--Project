@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:eco_bricks/all_screens/soldScreen.dart';
 import 'package:eco_bricks/constants/colors.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../services/call_handler/callHandler.dart';
-import '../services/push notification/notify_service.dart';
 import 'Login screen/loginScreen.dart';
 import 'addScreen.dart';
 import 'homeScreen.dart';
@@ -19,14 +19,15 @@ import 'orders_screen/order_screen.dart';
 
 class mainScreen extends StatefulWidget {
 
-  final int counter;
-  mainScreen({super.key, required this.counter });
+  mainScreen({super.key });
 
   @override
   State<mainScreen> createState() => _mainScreenState();
 }
 
 class _mainScreenState extends State<mainScreen> with SingleTickerProviderStateMixin{
+
+  int counter = 0;
 
   TabController? tabController;
   int selectedIndex = 0;
@@ -47,7 +48,6 @@ class _mainScreenState extends State<mainScreen> with SingleTickerProviderStateM
   @override
    initState() {
     super.initState();
-    NotifyService.info(context);
     tabController = TabController(length: 3, vsync: this);
     startStreaming();
   }
@@ -103,8 +103,13 @@ class _mainScreenState extends State<mainScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
+    FirebaseFirestore.instance.collection('Pending customer').get().then((data) {
+      setState(() {
+        counter = data.docs.length;
+      });
+    });
+
     double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
 
     return Scaffold(
         backgroundColor:Colors.grey.shade100,
@@ -121,10 +126,10 @@ class _mainScreenState extends State<mainScreen> with SingleTickerProviderStateM
            Padding(
              padding: const EdgeInsets.only(right: 15.0),
              child: Badge(
-               isLabelVisible: widget.counter == 0 ? false : true,
+               isLabelVisible: counter == 0 ? false : true,
                backgroundColor: CustomColor.badgeColor,
                offset: Offset(5, -3),
-               label: Text(widget.counter!>9 ? '${widget.counter}': ' ${widget.counter} ',style: TextStyle(fontSize: 15,color: Colors.black),),
+               label: Text(counter>9 ? '${counter}': ' ${counter} ',style: TextStyle(fontSize: 15,color: Colors.black),),
                largeSize: 23,
                smallSize: 23,
                child: ElevatedButton(

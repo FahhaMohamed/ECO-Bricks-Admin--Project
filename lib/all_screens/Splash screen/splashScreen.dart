@@ -19,7 +19,6 @@ class _splashScreenState extends State<splashScreen>
 
   Stream<QuerySnapshot> pendingCustomer = FirebaseFirestore.instance.collection('Pending customer').snapshots();
 
-  int counter = 0;
 
   @override
   void initState() {
@@ -29,15 +28,12 @@ class _splashScreenState extends State<splashScreen>
     Future.delayed(
         const Duration(milliseconds: 2000),()
         {
-          pendingCustomer.forEach((element) {
 
-            counter =  element.docs.length;
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>
-            FirebaseAuth.instance.currentUser != null ? mainScreen(counter: counter,) : const loginScreen(),
+            FirebaseAuth.instance.currentUser != null ? mainScreen() : const loginScreen(),
             )
             );
 
-          });
         }
     );
   }
@@ -72,7 +68,13 @@ class _splashScreenState extends State<splashScreen>
                 margin: EdgeInsets.only(left: 15),
                 height: 400,
                 width: 400,
-                child: Image.asset('assets/splash/new.PNG',fit: BoxFit.fill).animate().shimmer(duration: Duration(milliseconds: 1000),delay: Duration(milliseconds: 300)),
+                child: Image.asset('assets/splash/new.PNG',fit: BoxFit.fill)
+                    .animate()
+                    .shimmer(duration: Duration(milliseconds: 1000),delay: Duration(milliseconds: 200))
+                    .shimmer(duration: Duration(milliseconds: 1000),delay: Duration(milliseconds: 1600))
+                    .shimmer(duration: Duration(milliseconds: 1000),delay: Duration(milliseconds: 3000))
+                    .shimmer(duration: Duration(milliseconds: 1000),delay: Duration(milliseconds: 4600))
+                    .shimmer(duration: Duration(milliseconds: 1000),delay: Duration(milliseconds: 6200)),
               ),
             ),
             SafeArea(

@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_bricks/Utils/utils.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,7 +12,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../constants/colors.dart';
 import '../main_categories/bricks/bricksMain.dart';
 
 
@@ -964,30 +967,37 @@ class _bricksState extends State<bricks> {
 
                                           },
                                           onDoubleTap: () => pickImage("${snapshot.data!.docs[i]['order']}"),
-                                          child: Container(
-                                            height:80,
-                                            width:80,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(30),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.purple.shade50,
-                                                  blurRadius: 10,
-                                                  offset: const Offset(0, 10),
+                                          child: ClipOval(
+                                            child: Container(
+                                              height:80,
+                                              width:80,
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.purple.shade50,
+                                                    blurRadius: 10,
+                                                    offset: const Offset(0, 10),
+                                                  ),
+                                                ],
+                                                color: Colors.white,
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl: x['Url'],
+                                                placeholder: (context, url) =>  Shimmer.fromColors(
+
+                                                  period: const Duration(milliseconds: 1000),
+                                                  baseColor: Colors.grey.shade400,
+                                                  highlightColor: Colors.grey.shade300,
+                                                  child: Container(
+                                                    width: 80,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black,
+                                                      borderRadius: BorderRadius.circular(80),
+                                                    ),
+                                                    height: 80,
+                                                  ),
                                                 ),
-                                              ],
-                                            ),
-                                            child:x['Url'] == "" ? ClipOval(child: Image.asset('assets/emptyImg.jpg')) : ClipOval(
-                                              child:Container(
-                                                color:Colors.white,
-                                                child:  Image.network(x['Url'],
-                                                  loadingBuilder: (context, child, loadingProgress) {
-                                                    if (loadingProgress == null) return child;
-                                                    return SpinKitFadingCircle(
-                                                      color: Colors.purple.shade400,
-                                                    );// You can use LinearProgressIndicator or CircularProgressIndicator instead
-                                                  },
-                                                ),
+                                                errorWidget: (context, url, error) => Image.asset('assets/imgs.jpg'),
                                               ),
                                             ),
                                           ),
@@ -1018,5 +1028,5 @@ class _bricksState extends State<bricks> {
     );
   }
 
-
+  //
 }
