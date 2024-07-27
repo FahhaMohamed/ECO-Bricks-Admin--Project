@@ -256,12 +256,7 @@ class _loginScreenState extends State<loginScreen> {
 
                               return;
                             }
-                            else if(password!= "ebt18600"){
-                              //show error toast
-                              Fluttertoast.showToast(msg: 'Wrong password');
-
-                              return;
-                            }
+                            
 
 
                             //request to firebase auth
