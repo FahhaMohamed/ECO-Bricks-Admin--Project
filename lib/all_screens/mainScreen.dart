@@ -325,7 +325,7 @@ class _mainScreenState extends State<mainScreen> with SingleTickerProviderStateM
                         children: [
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.grey,
+                                backgroundColor:  Colors.grey,
                               ),
                               onPressed: (){
 
@@ -347,7 +347,7 @@ class _mainScreenState extends State<mainScreen> with SingleTickerProviderStateM
 
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.purple,
+                                backgroundColor: Colors.purple,
                               ),
                               child: const Text('Yes',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),)
                           ),
